@@ -616,7 +616,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         m_changePasswordAction->setToolTip(QApplication::translate("MainWindow", "Change password", 0));
 #endif // QT_NO_TOOLTIP
-        m_aboutBBSCoinAction->setText(QApplication::translate("MainWindow", "About BBSCoin", 0));
+        m_aboutBBSCoinAction->setText(QApplication::translate("MainWindow", "About Nirvana", 0));
         m_aboutQtAction->setText(QApplication::translate("MainWindow", "About Qt", 0));
         m_backupWalletAction->setText(QApplication::translate("MainWindow", "Backup wallet", 0));
         m_autostartAction->setText(QApplication::translate("MainWindow", "Start on system login", 0));
@@ -660,7 +660,7 @@ public:
         m_balanceCopyLabel->setText(QApplication::translate("MainWindow", "Copied!", 0));
         m_balanceIconLabel->setText(QString());
         m_overviewButton->setText(QApplication::translate("MainWindow", "OVERVIEW", 0));
-        m_sendButton->setText(QApplication::translate("MainWindow", "SEND BBSCOIN", 0));
+        m_sendButton->setText(QApplication::translate("MainWindow", "SEND Nirvana", 0));
         m_transactionsButton->setText(QApplication::translate("MainWindow", "TRANSACTIONS", 0));
         m_blockExplorerButton->setText(QApplication::translate("MainWindow", "BLOCK EXPLORER", 0));
         m_addressBookButton->setText(QApplication::translate("MainWindow", "CONTACTS", 0));
