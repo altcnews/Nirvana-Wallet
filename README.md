@@ -8,6 +8,8 @@ make
 
 ## Ubuntu
 ```
+git clone https://github.com/altcnews/Nirvana-Wallet.git
+cd Nirvana-Wallet
 ln -s ../Nirvana/ cryptonote
 mkdir build && cd build
 cmake ..
