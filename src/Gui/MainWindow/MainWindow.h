@@ -50,7 +50,7 @@ class MainWindow : public QMainWindow, public IWalletAdapterObserver, public IAp
 public:
   MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManager* _addressBookManager,
     IDonationManager* _donationManager, IOptimizationManager* _optimizationManager, IMiningManager* _miningManager,
-    IApplicationEventHandler* _applicationEventHandler,
+    IApplicationEventHandler* _applicationEventHandler, INewsReader* _blogReader,
     const QString& _styleSheetTemplate, QWidget* _parent);
   virtual ~MainWindow();
 
@@ -88,6 +88,7 @@ private:
   IOptimizationManager* m_optimizationManager;
   IMiningManager* m_miningManager;
   IApplicationEventHandler* m_applicationEventHandler;
+  INewsReader* m_blogReader;
   QAbstractItemModel* m_nodeStateModel;
   QAbstractItemModel* m_walletStateModel;
   QAbstractItemModel* m_transactionsModel;
