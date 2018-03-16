@@ -620,7 +620,7 @@
             <enum>Qt::NoFocus</enum>
            </property>
            <property name="text">
-            <string>Send Nirvana</string>
+            <string>SEND XAO</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -681,6 +681,22 @@
            </property>
            <property name="text">
             <string>CONTACTS</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">m_toolButtonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="m_miningButton">
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="text">
+            <string>MINING</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -766,6 +782,16 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="WalletGui::MiningFrame" name="m_miningFrame">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>
@@ -832,7 +858,7 @@
     </property>
     <addaction name="m_communityForumAction"/>
     <addaction name="m_reportIssueAction"/>
-    <addaction name="m_aboutNirvanaAction"/>
+    <addaction name="m_aboutAlloyAction"/>
     <addaction name="m_aboutQtAction"/>
    </widget>
    <addaction name="menuFile"/>
@@ -889,7 +915,7 @@
     <string>Change password</string>
    </property>
   </action>
-  <action name="m_aboutNirvanaAction">
+  <action name="m_aboutAlloyAction">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -1162,7 +1188,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_aboutNirvanaCoinAction</sender>
+   <sender>m_aboutAlloyAction</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>about()</slot>
