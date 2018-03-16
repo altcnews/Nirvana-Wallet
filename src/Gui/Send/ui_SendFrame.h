@@ -152,7 +152,7 @@ public:
         m_feeSpin = new QDoubleSpinBox(m_sendFeeFrame);
         m_feeSpin->setObjectName(QStringLiteral("m_feeSpin"));
         m_feeSpin->setButtonSymbols(QAbstractSpinBox::UpDownArrows);
-        m_feeSpin->setSuffix(QStringLiteral("BBS"));
+        m_feeSpin->setSuffix(QStringLiteral("VVC"));
         m_feeSpin->setDecimals(8);
         m_feeSpin->setMinimum(0.001);
         m_feeSpin->setMaximum(1e+09);
