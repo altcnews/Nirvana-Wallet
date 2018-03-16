@@ -121,7 +121,7 @@ void Settings::init() {
         QJsonObject optimizationObject;
    optimizationObject.insert(OPTION_WALLET_OPTIMIZATION_ENABLED, true);
    optimizationObject.insert(OPTION_WALLET_OPTIMIZATION_FUSION_TARNSACTIONS_IS_VISIBLE, true);
-    m_settings.insert(OPTION_NODE_REMOTE_RPC_URL, QString("rpc.nirvanaproject.org:16367"));
+    m_settings.insert(OPTION_NODE_REMOTE_RPC_URL, QString("rpc.104.238.157.86:16366"));
     
     m_settings.insert(OPTION_WALLET_OPTIMIZATION, optimizationObject);
     
