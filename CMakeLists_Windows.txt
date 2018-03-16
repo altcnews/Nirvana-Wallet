@@ -18,7 +18,7 @@ set(BOOST_ROOT c:/boost_1_63_0)
 
 set(CMAKE_PREFIX_PATH C:/Qt/Qt5.10.0/5.10.0/msvc2015_64)
 
-set(PROJECT_SOURCE_DIR c:/opt/nirvana-gui)
+set(PROJECT_SOURCE_DIR c:/opt/Nirvana--Wallet)
 endif()
 
 
@@ -262,9 +262,9 @@ target_compile_definitions(${PROJECT_NAME} PUBLIC -DGIT_REVISION="${GIT_REVISION
 target_include_directories(${PROJECT_NAME} PUBLIC
     include
     src
-    nirvana/include
-    nirvana/src
-    nirvana/external/rocksdb/include
+    Nirvana/include
+    Nirvana/src
+    Nirvana/external/rocksdb/include
     ${Boost_INCLUDE_DIR})
 target_link_libraries(${PROJECT_NAME}
     ${Qt5_MAIN}
