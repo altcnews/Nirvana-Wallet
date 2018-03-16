@@ -36,7 +36,7 @@
 #include "WalletApplication.h"
 #include "AddressBookManager.h"
 #include "ApplicationEventHandler.h"
-//#include "BlogReader.h"
+#include "BlogReader.h"
 #include "CommandLineParser.h"
 #include "Gui/Common/ExitWidget.h"
 #include "Gui/Common/P2pBindPortErrorDialog.h"
