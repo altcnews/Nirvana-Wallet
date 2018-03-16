@@ -36,6 +36,7 @@
 #include "WalletApplication.h"
 #include "AddressBookManager.h"
 #include "ApplicationEventHandler.h"
+#include "BlogReader.h"
 #include "CommandLineParser.h"
 #include "Gui/Common/ExitWidget.h"
 #include "Gui/Common/P2pBindPortErrorDialog.h"
@@ -54,11 +55,13 @@
 #include "Style/Style.h"
 #include "WalletSplashScreen.h"
 
+ 
+
 namespace WalletGui {
 
 namespace {
 
-const char BYTECOIN_URI_SCHEME_NAME[] = "bytecoin";
+const char BYTECOIN_URI_SCHEME_NAME[] = "Nirvana";
 const QRegularExpression LOG_SPLASH_REG_EXP("\\[Core\\] Imported block with index");
 
 quint16 findPort() {
@@ -101,9 +104,10 @@ bool rmDir(const QString& dirPath) {
 
 WalletApplication::WalletApplication(int& _argc, char** _argv) : QApplication(_argc, _argv), m_lockFile(nullptr),
   m_systemTrayIcon(new QSystemTrayIcon(this)), m_applicationEventHandler(new ApplicationEventHandler(this)),
-  m_optimizationManager(nullptr), m_mainWindow(nullptr), m_splash(nullptr),
+  m_optimizationManager(nullptr), m_blogReader(new BlogReader(this)), m_mainWindow(nullptr), m_splash(nullptr),
   m_logWatcher(nullptr), m_isAboutToQuit(false) {
-  setApplicationName("bbscoinwallet");
+
+  setApplicationName("alloywallet");
   setApplicationVersion(Settings::instance().getVersion());
   setQuitOnLastWindowClosed(false);
   setStyle(QStyleFactory::create("fusion"));
@@ -139,7 +143,7 @@ bool WalletApplication::init() {
   makeDataDir();
   WalletLogger::init(Settings::instance().getDataDir(), Settings::instance().hasDebugOption(), this);
   WalletLogger::info(tr("[Application] Initializing..."));
-  m_lockFile = new QLockFile(Settings::instance().getDataDir().absoluteFilePath("bbscoinwallet.lock"));
+  m_lockFile = new QLockFile(Settings::instance().getDataDir().absoluteFilePath("alloywallet.lock"));
   QUrl paymentUrl = QUrl::fromUserInput(arguments().last());
   if (paymentUrl.scheme() != BYTECOIN_URI_SCHEME_NAME) {
     paymentUrl = QUrl();
@@ -151,15 +155,18 @@ bool WalletApplication::init() {
   }
 #endif
   if (!m_lockFile->tryLock()) {
-    WalletLogger::warning(tr("[Application] BBSCoin wallet already running"));
+    WalletLogger::warning(tr("[Application] Nirvana wallet already running"));
     if (!paymentUrl.isValid()) {
-      QMessageBox::warning(nullptr, QObject::tr("Fail"), "BBSCoin wallet already running");
+      QMessageBox::warning(nullptr, QObject::tr("Fail"), "Nirvana wallet already running");
     }
 
     return false;
   }
 
   m_applicationEventHandler->init();
+  if (Settings::instance().isNewsEnabled()) {
+    m_blogReader->init();
+  }
 
   SignalHandler::instance().init();
   QObject::connect(&SignalHandler::instance(), &SignalHandler::quitSignal, this, &WalletApplication::quit);
@@ -170,6 +177,7 @@ bool WalletApplication::init() {
 
   m_cryptoNoteAdapter = new CryptoNoteAdapter(Settings::instance().getDataDir(), Settings::instance().isTestnet(),
     Settings::instance().hasDebugOption(), this);
+
   if(initCryptoNoteAdapter()) {
     WalletLogger::info(tr("[Application] Initialized successfully"));
     initUi();
@@ -190,6 +198,14 @@ void WalletApplication::dockClickHandler() {
     m_splash->show();
   } else if (m_mainWindow != nullptr) {
     m_mainWindow->show();
+  }
+}
+
+void WalletApplication::settingsUpdated() {
+  if (Settings::instance().isNewsEnabled()) {
+    m_blogReader->init();
+  } else {
+    m_blogReader->deinit();
   }
 }
 
@@ -228,7 +244,7 @@ bool WalletApplication::initCryptoNoteAdapter() {
   for (;;) {
     if (m_splash != nullptr) {
       m_splash->show();
-      m_splash->showMessage(QObject::tr("Loading blockchain..."), Qt::AlignLeft | Qt::AlignBottom, Qt::black);
+      m_splash->showMessage(QObject::tr("Loading blockchain..."), Qt::AlignLeft | Qt::AlignBottom, Qt::white);
       if (m_logWatcher == nullptr) {
         m_logWatcher = new LogFileWatcher(Settings::instance().getDataDir().absoluteFilePath(CORE_LOG_FILE_NAME), this);
         connect(m_logWatcher, &LogFileWatcher::newLogStringSignal, this, &WalletApplication::newLogString);
@@ -250,9 +266,9 @@ bool WalletApplication::initCryptoNoteAdapter() {
       okButton->setText(QObject::tr("Ok"));
       dlg.addButton(okButton, QMessageBox::AcceptRole);
       dlg.setText(QObject::tr("The database is currently used by another application or service.\n"
-      "If you have bytecoind with non-default RPC port, you should terminate it and relaunch BBSCoinWallet\n"
+      "If you have alloyd with non-default RPC port, you should terminate it and relaunch AlloyNirvanaWallet\n"
       "or\n"
-      "Set the Local deamon required port in BBSCoinWallet Menu/Preferences/Connection settings."));
+      "Set the Local deamon required port in NirvanaWallet Menu/Preferences/Connection settings."));
       dlg.exec();
       return false;
     }
@@ -338,7 +354,7 @@ void WalletApplication::initUi() {
   styleSheetFile.close();
   setStyleSheet(Settings::instance().getCurrentStyle().makeStyleSheet(styleSheet));
   m_mainWindow = new MainWindow(m_cryptoNoteAdapter, m_addressBookManager, m_donationManager, m_optimizationManager,
-    m_miningManager, m_applicationEventHandler, styleSheet, nullptr);
+    m_miningManager, m_applicationEventHandler, m_blogReader, styleSheet, nullptr);
   connect(static_cast<MainWindow*>(m_mainWindow), &MainWindow::reinitCryptoNoteAdapterSignal,
     this, &WalletApplication::reinitCryptoNoteAdapter);
   if (m_splash != nullptr) {
@@ -360,7 +376,7 @@ void WalletApplication::initUi() {
 
 void WalletApplication::initSystemTrayIcon() {
 #ifdef Q_OS_MAC
-  installDockHandler();
+  //installDockHandler(); // TODO: FIXME!
 #else
   if (!Settings::instance().isSystemTrayAvailable()) {
     return;
@@ -404,11 +420,12 @@ void WalletApplication::trayActivated(QSystemTrayIcon::ActivationReason _reason)
   }
 }
 
-void WalletApplication::settingsUpdated() {
-}
-
 void WalletApplication::prepareToQuit() {
   WalletLogger::debug(tr("[Application] Prepare to quit..."));
+  if (Settings::instance().isNewsEnabled()) {
+    m_blogReader->deinit();
+  }
+
   Settings::instance().removeObserver(this);
   m_isAboutToQuit = true;
   m_systemTrayIcon->hide();
