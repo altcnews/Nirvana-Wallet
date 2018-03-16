@@ -158,9 +158,9 @@ public:
         m_changePasswordAction = new QAction(MainWindow);
         m_changePasswordAction->setObjectName(QStringLiteral("m_changePasswordAction"));
         m_changePasswordAction->setEnabled(true);
-        m_aboutAlloyAction = new QAction(MainWindow);
-        m_aboutAlloyAction->setObjectName(QStringLiteral("m_aboutNirvanaAction"));
-        m_aboutAlloyAction->setEnabled(true);
+        m_aboutNirvanaAction = new QAction(MainWindow);
+        m_aboutNirvanaAction->setObjectName(QStringLiteral("m_aboutNirvanaAction"));
+        m_aboutNirvanaAction->setEnabled(true);
         m_aboutQtAction = new QAction(MainWindow);
         m_aboutQtAction->setObjectName(QStringLiteral("m_aboutQtAction"));
         m_aboutQtAction->setEnabled(true);
@@ -590,7 +590,7 @@ public:
         QObject::connect(m_changePasswordAction, SIGNAL(triggered()), MainWindow, SLOT(encryptWallet()));
         QObject::connect(m_aboutQtAction, SIGNAL(triggered()), MainWindow, SLOT(aboutQt()));
         QObject::connect(m_backupWalletAction, SIGNAL(triggered()), MainWindow, SLOT(backupWallet()));
-        QObject::connect(m_aboutAlloyAction, SIGNAL(triggered()), MainWindow, SLOT(about()));
+        QObject::connect(m_aboutNirvanaAction, SIGNAL(triggered()), MainWindow, SLOT(about()));
         QObject::connect(m_overviewButton, SIGNAL(toggled(bool)), m_overviewFrame, SLOT(setVisible(bool)));
         QObject::connect(m_transactionsButton, SIGNAL(toggled(bool)), m_transactionsFrame, SLOT(setVisible(bool)));
         QObject::connect(m_addressBookButton, SIGNAL(toggled(bool)), m_addressBookFrame, SLOT(setVisible(bool)));
