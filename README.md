@@ -1,3 +1,7 @@
+## Nirvana GUI Wallet
+Copyright (c) 2017-2018, The Nirvana Developers.
+Portions Copyright (c) 2012-2017, The CryptoNote Developers, The Bytecoin Developers.
+
 ## OSX
 ```
 brew install qt5
