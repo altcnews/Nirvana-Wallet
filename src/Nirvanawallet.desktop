@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Nirvana Wallet
+Comment=Nirvana wallet
+Exec=Nirvanawallet %U
+Terminal=false
+Type=Application
+Icon=Nirvana
+MimeType=x-scheme-handler/Nirvana;
+Categories=Office;Finance;
