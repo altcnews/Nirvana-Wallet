@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>:/images/bbscoin</normaloff>:/images/bbscoin</iconset>
+    <normaloff>:/images/Nirvana</normaloff>:/images/Nirvana</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -620,7 +620,7 @@
             <enum>Qt::NoFocus</enum>
            </property>
            <property name="text">
-            <string>SEND BBSCOIN</string>
+            <string>Send Nirvana</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -832,7 +832,7 @@
     </property>
     <addaction name="m_communityForumAction"/>
     <addaction name="m_reportIssueAction"/>
-    <addaction name="m_aboutBBSCoinAction"/>
+    <addaction name="m_aboutNirvanaAction"/>
     <addaction name="m_aboutQtAction"/>
    </widget>
    <addaction name="menuFile"/>
@@ -889,12 +889,12 @@
     <string>Change password</string>
    </property>
   </action>
-  <action name="m_aboutBBSCoinAction">
+  <action name="m_aboutNirvanaAction">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>About BBSCoin</string>
+    <string>About Nirvana</string>
    </property>
   </action>
   <action name="m_aboutQtAction">
@@ -1162,7 +1162,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_aboutBBSCoinAction</sender>
+   <sender>m_aboutNirvanaCoinAction</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>about()</slot>
