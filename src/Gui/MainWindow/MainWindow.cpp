@@ -60,8 +60,8 @@ namespace WalletGui {
 namespace {
 
 const int MAX_RECENT_WALLET_COUNT = 10;
-const char COMMUNITY_FORUM_URL[] = "Nirvana";
-const char REPORT_ISSUE_URL[] = "Nirvana";
+const char COMMUNITY_FORUM_URL[] = "http://Nirvanaproject.org";
+const char REPORT_ISSUE_URL[] = "http://Nirvanaproject.org";
 
 const char DONATION_URL_DONATION_TAG[] = "donation";
 const char DONATION_URL_LABEL_TAG[] = "label";
@@ -99,15 +99,15 @@ bool isDonationUrl(const QUrl& _url) {
 
 MainWindow::MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManager* _addressBookManager,
   IDonationManager* _donationManager, IOptimizationManager* _optimizationManager, IMiningManager* _miningManager,
-  IApplicationEventHandler* _applicationEventHandler, const QString& _styleSheetTemplate, QWidget* _parent) :
+  IApplicationEventHandler* _applicationEventHandler, INewsReader* _blogReader, const QString& _styleSheetTemplate, QWidget* _parent) :
   QMainWindow(_parent), m_ui(new Ui::MainWindow), m_cryptoNoteAdapter(_cryptoNoteAdapter),
   m_addressBookManager(_addressBookManager), m_donationManager(_donationManager),
-  m_optimizationManager(_optimizationManager), m_miningManager(_miningManager), m_applicationEventHandler(_applicationEventHandler), 
-  m_blockChainModel(nullptr), m_transactionPoolModel(nullptr), m_recentWalletsMenu(new QMenu(this)),
+  m_optimizationManager(_optimizationManager), m_miningManager(_miningManager), m_applicationEventHandler(_applicationEventHandler),
+  m_blogReader(_blogReader), m_blockChainModel(nullptr), m_transactionPoolModel(nullptr), m_recentWalletsMenu(new QMenu(this)),
   m_addRecipientAction(new QAction(this)), m_styleSheetTemplate(_styleSheetTemplate), m_walletStateMapper(new QDataWidgetMapper(this)),
   m_syncMovie(new QMovie(Settings::instance().getCurrentStyle().getWalletSyncGifFile(), QByteArray(), this)) {
   m_ui->setupUi(this);
-  setWindowTitle(tr("BBSCoin Wallet %1").arg(Settings::instance().getVersion()));
+//  setWindowTitle(tr("Alloy Wallet %1").arg(Settings::instance().getVersion()));
   m_addRecipientAction->setObjectName("m_addRecipientAction");
   m_cryptoNoteAdapter->addObserver(this);
   m_cryptoNoteAdapter->getNodeAdapter()->getWalletAdapter()->addObserver(this);
@@ -134,6 +134,7 @@ MainWindow::MainWindow(ICryptoNoteAdapter* _cryptoNoteAdapter, IAddressBookManag
     uiItem->setDonationManager(m_donationManager);
     uiItem->setMiningManager(m_miningManager);
     uiItem->setApplicationEventHandler(m_applicationEventHandler);
+    uiItem->setBlogReader(m_blogReader);
     uiItem->setMainWindow(this);
     uiItem->setNodeStateModel(m_nodeStateModel);
     uiItem->setWalletStateModel(m_walletStateModel);
@@ -230,6 +231,10 @@ void MainWindow::walletOpened() {
   if (url.isValid()) {
     urlReceived(url);
   }
+  
+    setWindowTitle(tr("Alloy Wallet %1").arg(Settings::instance().getVersion()));
+    
+    
 }
 
 void MainWindow::walletOpenError(int _initStatus) {
@@ -409,7 +414,7 @@ void MainWindow::commitData(QSessionManager& _manager) {
 }
 
 void MainWindow::walletStateModelDataChanged(const QModelIndex& _topLeft, const QModelIndex& _bottomRight, const QVector<int>& _roles) {
-  if (_topLeft.column() == WalletStateModel::COLUMN_ABOUT_TO_BE_SYNCHRONIZED) {
+ /* if (_topLeft.column() == WalletStateModel::COLUMN_ABOUT_TO_BE_SYNCHRONIZED) {
     bool walletAboutToBeSynchronized = _topLeft.data().toBool();
     if (!walletAboutToBeSynchronized) {
       m_walletStateMapper->removeMapping(m_ui->m_balanceLabel);
@@ -418,7 +423,7 @@ void MainWindow::walletStateModelDataChanged(const QModelIndex& _topLeft, const 
       m_ui->m_balanceLabel->setCursor(Qt::ArrowCursor);
       m_ui->m_balanceLabel->removeEventFilter(this);
       m_ui->m_balanceLabel->setToolTip(QString());
-  } else {
+  } else {*/
       m_syncMovie->stop();
       m_ui->m_balanceLabel->setMovie(nullptr);
       m_walletStateMapper->addMapping(m_ui->m_balanceLabel, WalletStateModel::COLUMN_TOTAL_BALANCE, "text");
@@ -426,8 +431,8 @@ void MainWindow::walletStateModelDataChanged(const QModelIndex& _topLeft, const 
       m_ui->m_balanceLabel->setCursor(Qt::PointingHandCursor);
       m_ui->m_balanceLabel->installEventFilter(this);
       m_ui->m_balanceLabel->setToolTip(tr("Click to copy"));
-    }
-  }
+    //}
+  //}
 }
 
 void MainWindow::createRecentWalletMenu() {
