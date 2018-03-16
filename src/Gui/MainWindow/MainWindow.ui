@@ -620,7 +620,7 @@
             <enum>Qt::NoFocus</enum>
            </property>
            <property name="text">
-            <string>SEND XAO</string>
+            <string>SEND VVC</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -858,7 +858,7 @@
     </property>
     <addaction name="m_communityForumAction"/>
     <addaction name="m_reportIssueAction"/>
-    <addaction name="m_aboutAlloyAction"/>
+    <addaction name="m_aboutNirvanaAction"/>
     <addaction name="m_aboutQtAction"/>
    </widget>
    <addaction name="menuFile"/>
@@ -915,7 +915,7 @@
     <string>Change password</string>
    </property>
   </action>
-  <action name="m_aboutAlloyAction">
+  <action name="m_aboutNirvanaAction">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -1188,7 +1188,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>m_aboutAlloyAction</sender>
+   <sender>m_aboutNirvanaAction</sender>
    <signal>triggered()</signal>
    <receiver>MainWindow</receiver>
    <slot>about()</slot>
