@@ -39,7 +39,7 @@ const char OLD_CORE_LOG_FILE_NAME[] = "Nirvanawallet.log";
 
 CryptoNoteAdapter::CryptoNoteAdapter(const QDir& _dataDir, bool _testnet, bool _debug, QObject* _parent) : QObject(_parent),
   m_dataDir(_dataDir), m_testnet(_testnet), m_debug(_debug), m_connectionMethod(ConnectionMethod::AUTO),
-  m_localDaemodPort(CryptoNote::RPC_DEFAULT_PORT), m_remoteDaemonUrl(), m_coreLogger(), m_walletLogger(),
+  m_localDaemodPort(RPC_DEFAULT_PORT), m_remoteDaemonUrl(), m_coreLogger(), m_walletLogger(),
   m_currency(CryptoNote::CurrencyBuilder(m_coreLogger).currency()),
   m_nodeAdapter(nullptr), m_autoConnectionTimerId(-1) {
 }
@@ -107,7 +107,7 @@ bool CryptoNoteAdapter::isValidPaymentId(const QString& _paymentId) const {
 }
 
 QString CryptoNoteAdapter::getCurrencyTicker() const {
-  return "bbs";
+  return "xao";
 }
 
 quint64 CryptoNoteAdapter::getMinimalFee() const {
@@ -352,8 +352,8 @@ void CryptoNoteAdapter::initNode() {
 }
 
 void CryptoNoteAdapter::initAutoConnection() {
-  WalletLogger::debug(tr("[CryptoNote wrapper] Searching local daemon: 127.0.0.1:%1").arg(CryptoNote::RPC_DEFAULT_PORT));
-  m_nodeAdapter = new ProxyRpcNodeAdapter(m_currency, m_coreLogger, m_walletLogger, "127.0.0.1", CryptoNote::RPC_DEFAULT_PORT, this);
+  WalletLogger::debug(tr("[CryptoNote wrapper] Searching local daemon: 127.0.0.1:%1").arg(RPC_DEFAULT_PORT));
+  m_nodeAdapter = new ProxyRpcNodeAdapter(m_currency, m_coreLogger, m_walletLogger, "127.0.0.1", RPC_DEFAULT_PORT, this);
   m_nodeAdapter->addObserver(this);
   m_autoConnectionTimerId = startTimer(AUTO_CONNECTION_INTERVAL);
   m_nodeAdapter->init();
@@ -378,7 +378,7 @@ void CryptoNoteAdapter::initRemoteRpcNode() {
 }
 
 void CryptoNoteAdapter::onLocalDaemonNotFound() {
-  WalletLogger::debug(tr("[CryptoNote wrapper] Daemon on 127.0.0.1:%1 not found").arg(CryptoNote::RPC_DEFAULT_PORT));
+  WalletLogger::debug(tr("[CryptoNote wrapper] Daemon on 127.0.0.1:%1 not found").arg(RPC_DEFAULT_PORT));
   killTimer(m_autoConnectionTimerId);
   m_autoConnectionTimerId = -1;
   QObject* nodeAdapter = dynamic_cast<QObject*>(m_nodeAdapter);
