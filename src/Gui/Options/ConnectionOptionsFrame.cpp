@@ -72,7 +72,7 @@ void ConnectionOptionsFrame::load() {
   m_ui->m_localPortSpin->setValue(Settings::instance().getLocalRpcPort());
   QUrl remoteUrl = Settings::instance().getRemoteRpcUrl();
   if (remoteUrl.isEmpty()) {
-    m_ui->m_remotePortSpin->setValue(CryptoNote::RPC_DEFAULT_PORT);
+    m_ui->m_remotePortSpin->setValue(RPC_DEFAULT_PORT);
   } else {
     m_ui->m_remoteHostEdit->setText(remoteUrl.host());
     m_ui->m_remotePortSpin->setValue(remoteUrl.port());
