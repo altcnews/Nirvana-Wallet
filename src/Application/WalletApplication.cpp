@@ -107,7 +107,7 @@ WalletApplication::WalletApplication(int& _argc, char** _argv) : QApplication(_a
   m_optimizationManager(nullptr), m_blogReader(new BlogReader(this)), m_mainWindow(nullptr), m_splash(nullptr),
   m_logWatcher(nullptr), m_isAboutToQuit(false) {
 
-  setApplicationName("alloywallet");
+  setApplicationName("Nirvanawallet");
   setApplicationVersion(Settings::instance().getVersion());
   setQuitOnLastWindowClosed(false);
   setStyle(QStyleFactory::create("fusion"));
@@ -143,7 +143,7 @@ bool WalletApplication::init() {
   makeDataDir();
   WalletLogger::init(Settings::instance().getDataDir(), Settings::instance().hasDebugOption(), this);
   WalletLogger::info(tr("[Application] Initializing..."));
-  m_lockFile = new QLockFile(Settings::instance().getDataDir().absoluteFilePath("alloywallet.lock"));
+  m_lockFile = new QLockFile(Settings::instance().getDataDir().absoluteFilePath("Nirvanawallet.lock"));
   QUrl paymentUrl = QUrl::fromUserInput(arguments().last());
   if (paymentUrl.scheme() != BYTECOIN_URI_SCHEME_NAME) {
     paymentUrl = QUrl();
@@ -266,7 +266,7 @@ bool WalletApplication::initCryptoNoteAdapter() {
       okButton->setText(QObject::tr("Ok"));
       dlg.addButton(okButton, QMessageBox::AcceptRole);
       dlg.setText(QObject::tr("The database is currently used by another application or service.\n"
-      "If you have alloyd with non-default RPC port, you should terminate it and relaunch AlloyNirvanaWallet\n"
+      "If you have alloyd with non-default RPC port, you should terminate it and relaunch NirvanaWallet\n"
       "or\n"
       "Set the Local deamon required port in NirvanaWallet Menu/Preferences/Connection settings."));
       dlg.exec();
