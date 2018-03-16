@@ -65,13 +65,13 @@ const char OPTION_PRIVACY_PARAMS[] = "privacyParams";
 const char OPTION_PRIVACY_NEWS_ENABLED[] = "newsEnabled";
 
 const char DEFAULT_WALLET_FILE_NAME[] = "Nirvanawallet.wallet";
-const quint64 DEFAULT_OPTIMIZATION_PERIOD = 1000 * 60 * 30; // 30 minutes
-const quint64 DEFAULT_OPTIMIZATION_THRESHOLD = 10000000000000;
-const quint64 DEFAULT_OPTIMIZATION_MIXIN = 6;
+const quint64 DEFAULT_OPTIMIZATION_PERIOD = 1000 * 60 * 5; // 5 minutes
+const quint64 DEFAULT_OPTIMIZATION_THRESHOLD = 1000000000000; //1VVC target
+const quint64 DEFAULT_OPTIMIZATION_MIXIN = 0;
 
 const quint64 VERSION_MAJOR = 2;
-const quint64 VERSION_MINOR = 0;
-const quint64 VERSION_PATCH = 2;
+const quint64 VERSION_MINOR = 5;
+
 
 }
 
@@ -82,7 +82,10 @@ Settings& Settings::instance() {
 
 
 Settings::Settings() : m_p2pBindPort(0), m_cmdLineParser(nullptr) {
-  m_defaultPoolList << "pool.Nirvana.org:3333";
+//m_defaultPoolList << "nirvanapool.com:3333";
+//m_defaultPoolList << "vvc.cryptoknight.cc:5661";
+
+
 
   Style* lightStyle = new LightStyle();
   Style* darkStyle = new DarkStyle();
@@ -108,12 +111,29 @@ void Settings::setCommandLineParser(CommandLineParser* _cmdLineParser) {
 
 void Settings::init() {
   QFile cfgFile(getDataDir().absoluteFilePath("Nirvanawallet.cfg"));
+  
   if (cfgFile.open(QIODevice::ReadOnly)) {
     m_settings = QJsonDocument::fromJson(cfgFile.readAll()).object();
+    
     cfgFile.close();
+  } else {
+      //stuff in some good practice defaults
+        QJsonObject optimizationObject;
+   optimizationObject.insert(OPTION_WALLET_OPTIMIZATION_ENABLED, true);
+   optimizationObject.insert(OPTION_WALLET_OPTIMIZATION_FUSION_TARNSACTIONS_IS_VISIBLE, true);
+    m_settings.insert(OPTION_NODE_REMOTE_RPC_URL, QString("rpc.nirvanaproject.org:16367"));
+    
+    m_settings.insert(OPTION_WALLET_OPTIMIZATION, optimizationObject);
+    
+      
   }
+  
 
   restoreDefaultPoolList();
+  
+  
+  
+    
 }
 
 void Settings::restoreDefaultPoolList() {
@@ -376,7 +396,7 @@ bool Settings::isNewsEnabled() const {
 
 quint16 Settings::getLocalRpcPort() const {
   QReadLocker lock(&m_lock);
-  return m_settings.value(OPTION_NODE_LOCAL_RPC_PORT).toInt(CryptoNote::RPC_DEFAULT_PORT);
+  return m_settings.value(OPTION_NODE_LOCAL_RPC_PORT).toInt(RPC_DEFAULT_PORT);
 }
 
 QUrl Settings::getRemoteRpcUrl() const {
@@ -424,7 +444,7 @@ bool Settings::isEncrypted() const {
 
 QString Settings::getVersion() const {
   QReadLocker lock(&m_lock);
-  return QString("%1.%2.%3").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(VERSION_PATCH);
+  return QString("%1.%2 |  %4").arg(VERSION_MAJOR).arg(VERSION_MINOR).arg(m_settings.value(OPTION_WALLET_WALLET_FILE).toString());
 }
 
 QString Settings::getCurrentTheme() const {
@@ -467,7 +487,7 @@ bool Settings::isStartOnLoginEnabled() const {
     return false;
   }
 
-  QString autorunFilePath = autorunDir.absoluteFilePath("Nirvanawallet.plist");
+  QString autorunFilePath = autorunDir.absoluteFilePath("Nirvanwallet.plist");
   if (!QFile::exists(autorunFilePath)) {
     return false;
   }
@@ -485,12 +505,12 @@ bool Settings::isStartOnLoginEnabled() const {
     return false;
   }
 
-  QString autorunFilePath = autorunDir.absoluteFilePath("Nirvanawallet.desktop");
+  QString autorunFilePath = autorunDir.absoluteFilePath("Nirvanwallet.desktop");
   res = QFile::exists(autorunFilePath);
 #elif defined(Q_OS_WIN)
   QSettings autorunSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
-  res = autorunSettings.contains("NirvanaWallet") &&
-    !QDir::fromNativeSeparators(autorunSettings.value("NirvanaWallet").toString().split(' ')[0]).compare(QCoreApplication::applicationFilePath());
+  res = autorunSettings.contains("AlloyWallet") &&
+    !QDir::fromNativeSeparators(autorunSettings.value("AlloyWallet").toString().split(' ')[0]).compare(QCoreApplication::applicationFilePath());
 #endif
   return res;
 }
