@@ -12,10 +12,10 @@ set(CRYPTONOTE_LIB cryptonote)
 include_directories(${CMAKE_BINARY_DIR}
   src
   include
-  nirvana/external
-  nirvana/external/rocksdb/include/
-  nirvana/include
-  nirvana/src
+  Nirvana/external
+  Nirvana/external/rocksdb/include/
+  Nirvana/include
+  Nirvana/src
 )
 
 find_package(Qt5Gui REQUIRED)
@@ -40,7 +40,7 @@ link_directories(${Boost_LIBRARY_DIRS})
 
 set(VERSION "")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/miniupnpcstrings.h.in "miniupnpcstrings.h")
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/nirvana/src/version.h.in "version.h")
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Nirvana/src/version.h.in "version.h")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/CryptoNoteWalletConfig.h.in "CryptoNoteWalletConfig.h")
 
 add_definitions(-DGIT_REVISION="${GIT_REVISION}")
@@ -61,78 +61,78 @@ file(GLOB_RECURSE CRYPTONOTE_SOURCES
   nirvana/external/miniupnpc/upnpreplyparse.c
   nirvana/src/BlockchainExplorer/BlockchainExplorer.cpp
   nirvana/src/BlockchainExplorer/BlockchainExplorerErrors.cpp
-  nirvana/src/Common/Base58.cpp
-  nirvana/src/Common/CommandLine.cpp
-  nirvana/src/Common/Util.cpp
-  nirvana/src/Common/StringTools.cpp
-  nirvana/src/Common/JsonValue.cpp
-  nirvana/src/Common/ConsoleTools.cpp
-  nirvana/src/Common/MemoryInputStream.cpp
-  nirvana/src/Common/PathTools.cpp
-  nirvana/src/Common/StdInputStream.cpp
-  nirvana/src/Common/StdOutputStream.cpp
-  nirvana/src/Common/StreamTools.cpp
-  nirvana/src/Common/StringOutputStream.cpp
-  nirvana/src/Common/StringView.cpp
-  nirvana/src/Common/VectorOutputStream.cpp
-  nirvana/src/Common/ScopeExit.cpp
-  nirvana/src/ConnectivityTool/ConnectivityTool.cpp
-  nirvana/src/crypto/blake256.c
-  nirvana/src/crypto/chacha8.c
-  nirvana/src/crypto/crypto-ops-data.c
-  nirvana/src/crypto/crypto-ops.c
-  nirvana/src/crypto/crypto.cpp
-  nirvana/src/crypto/groestl.c
-  nirvana/src/crypto/hash-extra-blake.c
-  nirvana/src/crypto/hash-extra-groestl.c
-  nirvana/src/crypto/hash-extra-jh.c
-  nirvana/src/crypto/hash-extra-skein.c
-  nirvana/src/crypto/hash.c
-  nirvana/src/crypto/jh.c
-  nirvana/src/crypto/keccak.c
-  nirvana/src/crypto/oaes_lib.c
-  nirvana/src/crypto/random.c
-  nirvana/src/crypto/skein.c
-  nirvana/src/crypto/slow-hash.c
-  nirvana/src/crypto/slow-hash.cpp
-  nirvana/src/crypto/tree-hash.c
-  nirvana/src/CryptoNoteCore/*.cpp
-  nirvana/src/CryptoNoteProtocol/*.cpp
-  nirvana/src/Daemon/*.cpp
-  nirvana/src/HTTP/*.cpp
-  nirvana/src/InProcessNode/InProcessNode.cpp
-  nirvana/src/InProcessNode/InProcessNodeErrors.cpp
-  nirvana/src/Logging/*.cpp
-  nirvana/src/NodeRpcProxy/NodeErrors.cpp
-  nirvana/src/NodeRpcProxy/NodeRpcProxy.cpp
-  nirvana/src/P2p/*.cpp
-  nirvana/src/Rpc/*.cpp
-  nirvana/src/Serialization/*.cpp
-  nirvana/src/Transfers/BlockchainSynchronizer.cpp
-  nirvana/src/Transfers/SynchronizationState.cpp
-  nirvana/src/Transfers/TransfersConsumer.cpp
-  nirvana/src/Transfers/TransfersContainer.cpp
-  nirvana/src/Transfers/TransfersSubscription.cpp
-  nirvana/src/Transfers/TransfersSynchronizer.cpp
-  nirvana/src/Wallet/*.cpp
-  nirvana/src/WalletLegacy/KeysStorage.cpp
-  nirvana/src/WalletLegacy/WalletLegacy.cpp
-  nirvana/src/WalletLegacy/WalletHelper.cpp
-  nirvana/src/WalletLegacy/WalletLegacySerializer.cpp
-  nirvana/src/WalletLegacy/WalletLegacySerialization.cpp
-  nirvana/src/WalletLegacy/WalletTransactionSender.cpp
-  nirvana/src/WalletLegacy/WalletUnconfirmedTransactions.cpp
-  nirvana/src/WalletLegacy/WalletUserTransactionsCache.cpp
-  nirvana/src/System/ContextGroup.cpp
-  nirvana/src/System/Event.cpp
-  nirvana/src/System/EventLock.cpp
-  nirvana/src/System/InterruptedException.cpp
-  nirvana/src/System/Ipv4Address.cpp
-  nirvana/src/System/TcpStream.cpp
-  nirvana/src/JsonRpcServer/*.cpp
-  nirvana/src/PaymentGate/*.cpp
-  nirvana/src/PaymentGateService/*.cpp
-  nirvana/src/Miner/*.cpp
+  Nirvana/src/Common/Base58.cpp
+  Nirvana/src/Common/CommandLine.cpp
+  Nirvana/src/Common/Util.cpp
+  Nirvana/src/Common/StringTools.cpp
+  Nirvana/src/Common/JsonValue.cpp
+  Nirvana/src/Common/ConsoleTools.cpp
+  Nirvana/src/Common/MemoryInputStream.cpp
+  Nirvana/src/Common/PathTools.cpp
+  Nirvana/src/Common/StdInputStream.cpp
+  Nirvana/src/Common/StdOutputStream.cpp
+  Nirvana/src/Common/StreamTools.cpp
+  Nirvana/src/Common/StringOutputStream.cpp
+  Nirvana/src/Common/StringView.cpp
+  Nirvana/src/Common/VectorOutputStream.cpp
+  Nirvana/src/Common/ScopeExit.cpp
+  Nirvana/src/ConnectivityTool/ConnectivityTool.cpp
+  Nirvana/src/crypto/blake256.c
+  Nirvana/src/crypto/chacha8.c
+  Nirvana/src/crypto/crypto-ops-data.c
+  Nirvana/src/crypto/crypto-ops.c
+  Nirvana/src/crypto/crypto.cpp
+  Nirvana/src/crypto/groestl.c
+  Nirvana/src/crypto/hash-extra-blake.c
+  Nirvana/src/crypto/hash-extra-groestl.c
+  Nirvana/src/crypto/hash-extra-jh.c
+  Nirvana/src/crypto/hash-extra-skein.c
+  Nirvana/src/crypto/hash.c
+  Nirvana/src/crypto/jh.c
+  Nirvana/src/crypto/keccak.c
+  Nirvana/src/crypto/oaes_lib.c
+  Nirvana/src/crypto/random.c
+  Nirvana/src/crypto/skein.c
+  Nirvana/src/crypto/slow-hash.c
+  Nirvana/src/crypto/slow-hash.cpp
+  Nirvana/src/crypto/tree-hash.c
+  Nirvana/src/CryptoNoteCore/*.cpp
+  Nirvana/src/CryptoNoteProtocol/*.cpp
+  Nirvana/src/Daemon/*.cpp
+  Nirvana/src/HTTP/*.cpp
+  Nirvana/src/InProcessNode/InProcessNode.cpp
+  Nirvana/src/InProcessNode/InProcessNodeErrors.cpp
+  Nirvana/src/Logging/*.cpp
+  Nirvana/src/NodeRpcProxy/NodeErrors.cpp
+  Nirvana/src/NodeRpcProxy/NodeRpcProxy.cpp
+  Nirvana/src/P2p/*.cpp
+  Nirvana/src/Rpc/*.cpp
+  Nirvana/src/Serialization/*.cpp
+  Nirvana/src/Transfers/BlockchainSynchronizer.cpp
+  Nirvana/src/Transfers/SynchronizationState.cpp
+  Nirvana/src/Transfers/TransfersConsumer.cpp
+  Nirvana/src/Transfers/TransfersContainer.cpp
+  Nirvana/src/Transfers/TransfersSubscription.cpp
+  Nirvana/src/Transfers/TransfersSynchronizer.cpp
+  Nirvana/src/Wallet/*.cpp
+  Nirvana/src/WalletLegacy/KeysStorage.cpp
+  Nirvana/src/WalletLegacy/WalletLegacy.cpp
+  Nirvana/src/WalletLegacy/WalletHelper.cpp
+  Nirvana/src/WalletLegacy/WalletLegacySerializer.cpp
+  Nirvana/src/WalletLegacy/WalletLegacySerialization.cpp
+  Nirvana/src/WalletLegacy/WalletTransactionSender.cpp
+  Nirvana/src/WalletLegacy/WalletUnconfirmedTransactions.cpp
+  Nirvana/src/WalletLegacy/WalletUserTransactionsCache.cpp
+  Nirvana/src/System/ContextGroup.cpp
+  Nirvana/src/System/Event.cpp
+  Nirvana/src/System/EventLock.cpp
+  Nirvana/src/System/InterruptedException.cpp
+  Nirvana/src/System/Ipv4Address.cpp
+  Nirvana/src/System/TcpStream.cpp
+  Nirvana/src/JsonRpcServer/*.cpp
+  Nirvana/src/PaymentGate/*.cpp
+  Nirvana/src/PaymentGateService/*.cpp
+  Nirvana/src/Miner/*.cpp
 )
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
@@ -176,12 +176,12 @@ if (WIN32)
   endif()
 
   add_definitions(/D_CRT_SECURE_NO_WARNINGS /D_WIN32_WINNT=0x0600 /DSTATICLIB)
-  include_directories(nirvana/src/Platform/msc)
-  link_directories(nirvana/external/rocksdb)
+  include_directories(Nirvana/src/Platform/msc)
+  link_directories(Nirvana/external/rocksdb)
 
   set(PLATFORM_DIR Windows)
   set(BUILD_PLATFORM WIN32)
-  set(BUILD_RESOURCES src/nirvanawallet.rc)
+  set(BUILD_RESOURCES src/Nirvana-Wallet.rc)
   set(QTMAIN Qt5::WinMain)
 
 elseif (UNIX)
@@ -189,13 +189,13 @@ elseif (UNIX)
   add_custom_target(
      rocksdb
      COMMAND make static_lib -Wno-undef -Wno-unused-result -Wno-unused-value
-     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/nirvana/external/rocksdb
+     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Nirvana/external/rocksdb
   )
   add_library(rocksdblib STATIC IMPORTED GLOBAL)
-  set_target_properties(rocksdblib PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/nirvana/external/rocksdb/librocksdb.a)
+  set_target_properties(rocksdblib PROPERTIES IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/Nirvana/external/rocksdb/librocksdb.a)
   add_dependencies(rocksdblib rocksdb)
 
-  set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} nirvana/external/miniupnpc/minissdpc.c)
+  set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} Nirvana/external/miniupnpc/minissdpc.c)
 
   if (APPLE)
     enable_language(ASM)
@@ -216,8 +216,8 @@ elseif (UNIX)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -maes -D_DARWIN_C_SOURCE")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework Cocoa -framework OpenGL -framework CoreFoundation -framework Carbon -framework IOKit -L/usr/lib")
 
-    set(MACOSX_BUNDLE_ICON_FILE nirvana.icns)
-    set(APPLICATION_ICON src/images/nirvana.icns)
+    set(MACOSX_BUNDLE_ICON_FILE Nirvana.icns)
+    set(APPLICATION_ICON src/images/Nirvana.icns)
     set_source_files_properties(${APPLICATION_ICON} PROPERTIES MACOSX_PACKAGE_LOCATION "Resources")
 
     set(BUILD_PLATFORM MACOSX_BUNDLE)
@@ -234,8 +234,8 @@ elseif (UNIX)
   endif (APPLE)
 endif ()
 
-include_directories(nirvana/src/Platform/${PLATFORM_DIR})
-file(GLOB PLATFORM_SOURCES nirvana/src/Platform/${PLATFORM_DIR}/System/*)
+include_directories(Nirvana/src/Platform/${PLATFORM_DIR})
+file(GLOB PLATFORM_SOURCES Nirvana/src/Platform/${PLATFORM_DIR}/System/*)
 set(CRYPTONOTE_SOURCES ${CRYPTONOTE_SOURCES} ${PLATFORM_SOURCES} ${CRYPTONOTE_PLATFORM})
 
 add_library(${CRYPTONOTE_LIB} STATIC ${CRYPTONOTE_SOURCES})
