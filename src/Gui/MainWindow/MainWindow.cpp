@@ -60,8 +60,8 @@ namespace WalletGui {
 namespace {
 
 const int MAX_RECENT_WALLET_COUNT = 10;
-const char COMMUNITY_FORUM_URL[] = "http://Nirvanaproject.org";
-const char REPORT_ISSUE_URL[] = "http://Nirvanaproject.org";
+const char COMMUNITY_FORUM_URL[] = "https://github.com/altcnews";
+const char REPORT_ISSUE_URL[] = "https://github.com/altcnews";
 
 const char DONATION_URL_DONATION_TAG[] = "donation";
 const char DONATION_URL_LABEL_TAG[] = "label";
@@ -232,7 +232,7 @@ void MainWindow::walletOpened() {
     urlReceived(url);
   }
   
-    setWindowTitle(tr("Alloy Wallet %1").arg(Settings::instance().getVersion()));
+    setWindowTitle(tr("Nirvana Wallet %1").arg(Settings::instance().getVersion()));
     
     
 }
