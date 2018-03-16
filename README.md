@@ -19,7 +19,7 @@ make
 Clone the Nirvana first,
 
 ```
-git clone https://github.com/altcnews/Nirvana.git Nirvana
+git clone https://github.com/altcnews/Nirvana.git
 ```
 
 Now, you should compile the Nirvana dynamic libs without rocksdb first, comment "add_subdirectory(tests)" line in Nirvana/CMakeLists.txt, and compile the packages/rocksdb-rocksdb-4.11.2.zip dynamic libs.
