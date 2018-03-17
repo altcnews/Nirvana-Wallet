@@ -7,6 +7,7 @@ Portions Copyright (c) 2012-2017, The CryptoNote Developers, The Bytecoin Develo
 git clone https://github.com/altcnews/Nirvana-Wallet.git
 cd Nirvana-Wallet
 git submodule add -f https://github.com/altcnews/Nirvana
+ln -s ../Nirvana/ cryptonote
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=/usr/local/Cellar/qt/5.10.0_1
 make
