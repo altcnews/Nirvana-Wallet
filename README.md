@@ -17,6 +17,7 @@ make
 ```
 git clone https://github.com/altcnews/Nirvana-Wallet.git
 cd Nirvana-Wallet
+git submodule add -f https://github.com/altcnews/Nirvana
 cp CMakeLists_ubuntu.txt CMakeLists.txt
 ln -s ../Nirvana/ cryptonote
 mkdir build && cd build
